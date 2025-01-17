@@ -1,6 +1,5 @@
-import express, { Request, Response } from 'express'
-
-const app = express()
+import { Request, Response } from 'express'
+import app from './app'
 
 const PORT = 3000
 
