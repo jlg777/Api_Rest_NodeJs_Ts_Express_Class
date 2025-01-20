@@ -1,16 +1,22 @@
 import express, { Application } from 'express'
-const PORT = process.env.PORT ?? '3000'
+// const PORT = process.env.PORT ?? '3000'
 
 class App {
-  app: Application
+  private readonly app: Application
 
   constructor () {
     this.app = express()
+    this.config()
+  }
+
+  config (): void {
+    this.app.set('PORT', process.env.PORT ?? '3000')
   }
 
   listen (): void {
-    this.app.listen(3000, () => {
-      console.log(`Servidor corriendo en el puerto ${PORT}`)
+    const PORT: number = this.app.get('PORT') // Obtenemos el puerto configurado
+    this.app.listen(PORT, () => {
+      console.log(`Servidor corriendo en el http://localhost:${PORT}`)
     })
   }
 }
