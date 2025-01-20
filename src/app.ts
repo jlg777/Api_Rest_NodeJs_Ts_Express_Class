@@ -1,4 +1,5 @@
 import express, { Application } from 'express'
+import morgan from 'morgan'
 // const PORT = process.env.PORT ?? '3000'
 
 class App {
@@ -7,6 +8,11 @@ class App {
   constructor () {
     this.app = express()
     this.config()
+    this.middlewares()
+  }
+
+  middlewares (): void {
+    this.app.use(morgan('dev'))
   }
 
   config (): void {
