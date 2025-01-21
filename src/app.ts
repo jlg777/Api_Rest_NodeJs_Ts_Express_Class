@@ -1,5 +1,7 @@
 import express, { Application } from 'express'
 import morgan from 'morgan'
+import { connect } from './db/database'
+import indexRoutes from './routes/index.routes'
 // const PORT = process.env.PORT ?? '3000'
 
 class App {
@@ -9,6 +11,7 @@ class App {
     this.app = express()
     this.config()
     this.middlewares()
+    this.routes()
   }
 
   middlewares (): void {
@@ -19,11 +22,16 @@ class App {
     this.app.set('PORT', process.env.PORT ?? '3000')
   }
 
-  listen (): void {
+  routes (): void {
+    this.app.use(indexRoutes)
+  }
+
+  async listen (): Promise<void> {
     const PORT: number = this.app.get('PORT') // Obtenemos el puerto configurado
     this.app.listen(PORT, () => {
       console.log(`Servidor corriendo en el http://localhost:${PORT}`)
     })
+    await connect()
   }
 }
 export default App
