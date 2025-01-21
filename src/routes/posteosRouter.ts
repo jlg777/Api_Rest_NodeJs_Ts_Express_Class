@@ -1,8 +1,9 @@
 import { Router } from 'express'
-import { posteosGet } from '../controllers/posteosController'
+import { createPosteo, posteosGet } from '../controllers/posteosController'
 
 const posteosRouter = Router()
 
 posteosRouter.get('/', posteosGet)
+posteosRouter.post('/', createPosteo)
 
 export default posteosRouter

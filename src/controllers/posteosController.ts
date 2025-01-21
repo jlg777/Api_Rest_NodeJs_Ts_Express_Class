@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { connect } from '../db/database'
+import { Posteo } from '../../types'
 
 export async function posteosGet (_req: Request, res: Response): Promise<void> {
   try {
@@ -15,5 +16,23 @@ export async function posteosGet (_req: Request, res: Response): Promise<void> {
     // Manejo de errores
     console.error('Error al obtener los posteos:', error)
     res.status(500).json({ message: 'Error al obtener los posteos' })
+  }
+}
+
+export async function createPosteo (req: Request, res: Response): Promise<void> {
+  const newPosteo: Posteo = req.body
+  try {
+    // Conectar a la base de datos
+    const conn = await connect()
+
+    // Ejecutar la consulta para insertar el nuevo posteo
+    await conn?.query('INSERT INTO posts SET ?', [newPosteo])
+
+    // Si la inserción es exitosa, enviamos el nuevo posteo con el código de estado 201 (Creado)
+    res.status(201).send('Posteo Creado')
+  } catch (error) {
+    // Manejo de errores en caso de que la inserción falle
+    console.error('Error al crear el posteo:', error)
+    res.status(500).json({ message: 'Error al crear el posteo' })
   }
 }
