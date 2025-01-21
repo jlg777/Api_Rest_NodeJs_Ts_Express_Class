@@ -36,3 +36,16 @@ export async function createPosteo (req: Request, res: Response): Promise<void> 
     res.status(500).json({ message: 'Error al crear el posteo' })
   }
 }
+
+export async function getPosteoId (req: Request, res: Response): Promise<void> {
+  const { id } = req.params
+  try {
+    const conn = await connect()
+    const post = await conn?.query('SELECT * FROM posts WHERE id = ?', [id])
+    res.status(200).json(post)
+  } catch (error) {
+    // Manejo de errores en caso de que la inserción falle
+    console.error('Error al crear el posteo:', error)
+    res.status(500).json({ message: 'Error al crear el posteo' })
+  }
+}
