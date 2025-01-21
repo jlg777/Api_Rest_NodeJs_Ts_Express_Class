@@ -1,12 +1,13 @@
-import { Request, Response } from 'express'
-import app from './app'
+import App from './app'
 
-const PORT = 3000
+async function main (): Promise<void> {
+  try {
+    const app = new App()
+    app.listen()
+  } catch (error) {
+    console.error('Error al iniciar la aplicación:', error)
+    process.exit(1) // Finaliza el proceso con un código de error
+  }
+}
 
-app.get('/', (_req: Request, res: Response) => {
-  res.send('Inicio')
-})
-
-app.listen(PORT, () => {
-  console.log(`Escuchando en el http://localhost:${PORT}`)
-})
+void main()
