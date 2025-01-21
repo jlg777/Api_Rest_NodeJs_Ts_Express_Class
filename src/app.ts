@@ -1,6 +1,5 @@
 import express, { Application } from 'express'
 import morgan from 'morgan'
-import { connect } from './db/database'
 import indexRoutes from './routes/index.routes'
 import { posteosGet } from './controllers/posteosController'
 // const PORT = process.env.PORT ?? '3000'
@@ -33,7 +32,6 @@ class App {
     this.app.listen(PORT, () => {
       console.log(`Servidor corriendo en el http://localhost:${PORT}`)
     })
-    await connect()
   }
 }
 export default App
