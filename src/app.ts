@@ -2,6 +2,7 @@ import express, { Application } from 'express'
 import morgan from 'morgan'
 import { connect } from './db/database'
 import indexRoutes from './routes/index.routes'
+import { posteosGet } from './controllers/posteosController'
 // const PORT = process.env.PORT ?? '3000'
 
 class App {
@@ -24,6 +25,7 @@ class App {
 
   routes (): void {
     this.app.use(indexRoutes)
+    this.app.use(('/posteos'), posteosGet)
   }
 
   async listen (): Promise<void> {
