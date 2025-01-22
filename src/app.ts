@@ -1,7 +1,7 @@
-import express, { Application } from 'express'
+import express, { Application, json } from 'express'
 import morgan from 'morgan'
-import { connect } from './db/database'
 import indexRoutes from './routes/index.routes'
+import posteosRouter from './routes/posteosRouter'
 // const PORT = process.env.PORT ?? '3000'
 
 class App {
@@ -16,6 +16,7 @@ class App {
 
   middlewares (): void {
     this.app.use(morgan('dev'))
+    this.app.use(json())
   }
 
   config (): void {
@@ -24,6 +25,7 @@ class App {
 
   routes (): void {
     this.app.use(indexRoutes)
+    this.app.use(('/posteos'), posteosRouter)
   }
 
   async listen (): Promise<void> {
@@ -31,7 +33,6 @@ class App {
     this.app.listen(PORT, () => {
       console.log(`Servidor corriendo en el http://localhost:${PORT}`)
     })
-    await connect()
   }
 }
 export default App
