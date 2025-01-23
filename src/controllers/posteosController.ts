@@ -60,3 +60,16 @@ export async function deletePosteoId (req: Request, res: Response): Promise<void
     res.status(500).json({ message: 'Error al crear el posteo' })
   }
 }
+
+export async function updatePosteoiD (req: Request, res: Response): Promise<void> {
+  const { id } = req.params
+  const updatePost: Posteo = req.body
+  try {
+    const conn = await connect()
+    await conn?.query('UPDATE posts set ? WHERE id = ?', [updatePost, id])
+    res.status(200).send('Posteo Actualizado')
+  } catch (error) {
+    console.error('Error al editar el posteo:', error)
+    res.status(500).json({ message: 'Error al crear el posteo' })
+  }
+}
