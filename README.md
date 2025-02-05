@@ -72,7 +72,18 @@ CREATE TABLE posts (
 );
 ```
 
-#### 🚀 Iniciar la aplicación
+#### 💽 Configuración de las variables de entorno
+
+# Crear un archivo .env en la raíz del proyecto con las siguientes variables:
+```bash
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=root
+DB_NAME=posteos
+PORT=3000
+```
+
+#### 🪂 Iniciar la aplicación
 
 Para el desarrollo:
 ```arduino
